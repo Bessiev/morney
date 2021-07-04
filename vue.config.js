@@ -1,11 +1,10 @@
-/*eslint-disable */
+/* eslint-disable */ 
 const path = require('path')
 
 module.exports = {
   lintOnSave: false,
   chainWebpack: config =>{
     const dir = path.resolve(__dirname, 'src/assets/icons')
-
     config.module
       .rule('svg-sprite')
       .test(/\.svg$/)//正则匹配
