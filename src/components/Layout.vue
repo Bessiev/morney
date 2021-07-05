@@ -1,15 +1,16 @@
 <template>
-    <div class="nav-wrapper">
-        <div class="content">
-            <slot/>
-        </div>
-        <Nav/>
+     <div class="layout-wrapper" :class="classPrefix && `${classPrefix}-wrapper`">
+    <div class="content" :class="classPrefix && `${classPrefix}-content`   ">
+      <slot/>
     </div>
+    <Nav/>
+  </div>
 </template>
 
 <script lang="ts">
 export default {
     name:'Layout',
+    props: ['classPrefix'],
 }
 </script>
 
