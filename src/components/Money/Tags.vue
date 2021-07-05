@@ -23,18 +23,19 @@
     toggle(tag: string) {
       const index = this.selectedTags.indexOf(tag);
       if (index >= 0) {
-        this.selectedTags.splice(index, 1);
+        this.selectedTags.splice(index, 1);//指定位置删除一个
       } else {
         this.selectedTags.push(tag);
       }
+      this.$emit('update:value', this.selectedTags)
     }
     create() {
-      const name = window.prompt('请输入标签名');
+      const name = window.prompt('请输入标签名');//弹窗
       if (name === '') {
         window.alert('标签名不能为空');
-      } else if (this.dataSource) {
+      } else if (this.dataSource) {//this.dataSource存在时
         this.$emit('update:dataSource',
-          [...this.dataSource, name]);
+          [...this.dataSource, name]);//触发事件
       }
     }
   }
@@ -61,7 +62,7 @@
         margin-right: 12px;
         margin-top: 4px;
         &.selected {
-          background: darken($bg, 50%);
+          background: darken($bg, 50%);//选中后颜色变深
           color: white;
         }
       }
