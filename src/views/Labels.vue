@@ -20,24 +20,18 @@
 <script lang="ts">
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
-  import tagListModel from '@/models/tagListModel';
   import Button from '@/components/Button.vue';
-  tagListModel.fetch();
+  import {mixins} from 'vue-class-component';
+  import TagHelper from '@/mixins/TagHelper';
   @Component({
-    components: {Button}
+    components: {Button},
   })
-  export default class Labels extends Vue {
-    tags = tagListModel.data;
-    createTag() {
-      const name = window.prompt('请输出标签名');
-      if (name) {
-        const message = tagListModel.create(name);
-        if (message === 'duplicated') {
-          window.alert('标签名重复了');
-        } else if (message === 'success') {
-          window.alert('添加成功');
-        }
-      }
+  export default class Labels extends mixins(TagHelper) {
+    get tags() {
+      return this.$store.state.tagList;
+    }
+    beforeCreate() {
+      this.$store.commit('fetchTags');
     }
   }
 </script>
@@ -52,7 +46,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid #e6e6e6;
+      border-bottom: 1px solid #E6E6E6;
       svg {
         width: 18px;
         height: 18px;
