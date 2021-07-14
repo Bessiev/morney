@@ -25,23 +25,22 @@
   import {Component, Prop} from 'vue-property-decorator';
   @Component
   export default class NumberPad extends Vue {
-    @Prop() readonly value!: number;
+    @Prop(Number) readonly value!: number;
     output = this.value.toString();
-    
     inputContent(event: MouseEvent) {
-      const button = (event.target as HTMLButtonElement);//强制指定类型
+      const button = (event.target as HTMLButtonElement);
       const input = button.textContent!;
       if (this.output.length === 16) { return; }
-      if (this.output === '0') {//输入数据是0的情况
-        if ('0123456789'.indexOf(input) >= 0) {//1-9之间
+      if (this.output === '0') {
+        if ('0123456789'.indexOf(input) >= 0) {
           this.output = input;
-        } else {//.就直接加上
+        } else {
           this.output += input;
         }
         return;
       }
-      if (this.output.indexOf('.') >= 0 && input === '.') {return;}//多个点的情况
-      this.output += input;//不是0则直接加上
+      if (this.output.indexOf('.') >= 0 && input === '.') {return;}
+      this.output += input;
     }
     remove() {
       if (this.output.length === 1) {
@@ -54,8 +53,9 @@
       this.output = '0';
     }
     ok() {
-      this.$emit('update:value', this.output);
-      this.$emit('submit', this.output);
+      const number = parseFloat(this.output);
+      this.$emit('update:value', number);
+      this.$emit('submit', number);
       this.output = '0';
     }
   }

@@ -17,12 +17,11 @@ const tagStore = {
       window.alert('标签名重复了');
       return 'duplicated';
     }
-      const id = createId().toString();
-      this.tagList.push({id, name: name});
-      this.saveTags();
-      window.alert('添加成功');
-      return 'success';
-    
+    const id = createId().toString();
+    this.tagList.push({id, name: name});
+    this.saveTags();
+    window.alert('添加成功');
+    return 'success';
   },
   removeTag(id: string) {
     let index = -1;
